@@ -11,7 +11,15 @@ def index(request):
 def solve(request):
     # is request se data utha sakte hai form ka
     # print(request.GET.get('givenMatrix', 'default')) : jis element ka naam text hai request mai uska data utha lega
-    solution = process.simulateGraph(request)[2]
-    params = {"stages" : solution}
-    # here I have to process the images which are formed
-    return render(request, "answer.html", params)
+    valid, message, solution = process.simulateGraph(request)
+    if (valid == False):
+        params = {"message": message}
+        return render(request, "invalid.html", params)
+    else:
+        algo = request.GET.get("algo").upper()
+        params = {"stages": solution, "algo": algo}
+        # here I have to process the images which are formed
+        if (algo == "DIJKSTRA") :
+            print("dijskstra rendered")
+            return render(request, "dijkstra.html", params)
+        return render(request, "dfsbfs.html", params)

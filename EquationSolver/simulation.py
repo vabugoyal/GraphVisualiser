@@ -2,7 +2,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import pandas as pd
 import collections
-
+import dataframe_image as dfi
+import heapq
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -17,7 +18,7 @@ PLOTNO = 0
 def dfsGO(node, G, nodeColors, edgeColors, idx, vis, par):
     vis[node] = 1
     nodeColors[node] = CURRENT
-    myplot(G, nodeColors, edgeColors)
+    captureGraph(G, nodeColors, edgeColors, 0)
 
     for neigh in G[node].keys():
         if (vis[neigh] == 0):
@@ -25,12 +26,23 @@ def dfsGO(node, G, nodeColors, edgeColors, idx, vis, par):
             dfsGO(neigh, G, nodeColors, edgeColors, idx, vis, node)
         edgeColors[idx[(node, neigh)]] = VISITED
         nodeColors[node] = CURRENT
-        myplot(G, nodeColors, edgeColors)
+        captureGraph(G, nodeColors, edgeColors, 0)
 
     nodeColors[node] = VISITED
 
 
-def startDFS(G):
+def startDFS(g, nodes):
+    """
+    This will generate images for dfs simulation.
+    The images will belong to only one component i.e
+    Graph.
+    """
+    global PLOTNO
+    G = nx.DiGraph()
+    for i in range(1, nodes + 1):
+        G.add_node(i)
+    G.add_edges_from(g)
+    PLOTNO = 0
     nodes = G.number_of_nodes()
     edges = list(G.edges())
     nodeColors = (nodes + 1) * ["black"]
@@ -40,13 +52,13 @@ def startDFS(G):
     vis = (nodes + 1) * [0]
 
     # displaying the graph for first time
-    myplot(G, nodeColors, edgeColors)
+    captureGraph(G, nodeColors, edgeColors, 0)
 
     for node in range(1, nodes + 1):
         if (vis[node]): continue
         dfsGO(node, G, nodeColors, edgeColors, idx, vis, -1)
 
-    myplot(G, nodeColors, edgeColors)
+    captureGraph(G, nodeColors, edgeColors, 0)
 
 
 
@@ -64,20 +76,30 @@ def bfsGO(node, G, nodeColors, edgeColors, idx, vis):
         N = Q[0]
         Q.popleft()
         nodeColors[N] = CURRENT
-        myplot(G, nodeColors, edgeColors)
+        captureGraph(G, nodeColors, edgeColors, 0)
         for neigh in G[N].keys():
             if (vis[neigh] == 0):
                 vis[neigh] = 1
                 nodeColors[neigh] = ACTIVE
                 Q.append(neigh)
             edgeColors[idx[(N, neigh)]] = VISITED
-            myplot(G, nodeColors, edgeColors)
+            captureGraph(G, nodeColors, edgeColors, 0)
 
         nodeColors[N] = VISITED
 
 
-def startBFS(G):
-    nodes = G.number_of_nodes()
+def startBFS(g, nodes):
+    """
+    This will generate images for bfs simulation.
+    The images will be related to only one component i.e
+    Graph
+    """
+    global PLOTNO
+    PLOTNO = 0
+    G = nx.DiGraph()
+    for i in range(1, nodes + 1):
+        G.add_node(i)
+    G.add_edges_from(g)
     edges = list(G.edges())
     nodeColors = (nodes + 1) * ["black"]
     edgeColors = (len(edges)) * ["black"]
@@ -86,47 +108,96 @@ def startBFS(G):
     vis = (nodes + 1) * [0]
 
     # displaying the graph for first time
-    myplot(G, nodeColors, edgeColors)
+    captureGraph(G, nodeColors, edgeColors, 0)
 
     for node in range(1, nodes + 1):
         if (vis[node]): continue
         bfsGO(node, G, nodeColors, edgeColors, idx, vis)
 
-    myplot(G, nodeColors, edgeColors)
+    captureGraph(G, nodeColors, edgeColors, 0)
 
 
 
+########################### Meri pyari pyari dijkstra ################################
+
+def startDijkstra(g, nodes):
+    """
+    This will generate images which will help me
+    create a simulation for dijkstra.
+    There will be two components of the simulation.
+    1. Graph
+    2. Priority Queue (distance array, vis array, etc.)
+    """
+    START_NODE = 1
+    global PLOTNO
+    PLOTNO = 0
+    G = nx.DiGraph()
+    for node in range(1, nodes + 1):
+        G.add_node(node)
+    for edge in g:
+        G.add_edge(edge[0], edge[1], weight=edge[2])
+    edges = list(G.edges())
+    nodeColors = (nodes + 1) * ["black"]
+    edgeColors = (len(edges)) * ["black"]
+    idx = {tuple(edges[i]): i for i in range(len(edges))}
 
 
+    data = pd.DataFrame()
+    data["Node"] = [i for i in range(1, nodes + 1)]
+    data["Visited"] = [False for _ in range(nodes)]
+    data["Distance"] = ["inf" for _ in range(nodes)]
+    data = data.set_index("Node")
+    captureGraph(G, nodeColors, edgeColors, 1)
+    captureDataFrame(data)
 
+    n = nodes
+    dist = [float("inf") for _ in range(n + 1)]
+    dist[START_NODE] = 0
+    visited = [False for _ in range(n + 1)]
+    pq = [(0, START_NODE)]
+    data.at[START_NODE, "Distance"] = 0
+    while len(pq) > 0:
+        _, u = heapq.heappop(pq)
+        if visited[u]:
+            continue
+        nodeColors[u] = CURRENT
+        captureGraph(G, nodeColors, edgeColors, 1)
+        captureDataFrame(data)
+        visited[u] = True
+        data.at[u, "Visited"] = True
+        for v in G[u].keys():
+            l = G[u][v]['weight']
+            if dist[u] + l < dist[v]:
+                nodeColors[v] = ACTIVE
+                dist[v] = dist[u] + l
+                data.at[v, "Distance"] = dist[v]
+                heapq.heappush(pq, (dist[v], v))
+            edgeColors[idx[(u, v)]] = VISITED
+            captureGraph(G, nodeColors, edgeColors, 1)
+            captureDataFrame(data)
+        nodeColors[u] = VISITED
 
-
+    captureGraph(G, nodeColors, edgeColors, 1)
+    captureDataFrame(data)
 
 ################################ Main where some algo starts #############################
 
-def start(g, nodes):
+def start(g, nodes, algo):
     """
-    This will make the images at various instants of time
-    and store them in output folder and will return the number of
-    images formed.
+    This will channel graph and nodes to different functions
+    based on the algo used and then generate the images which
+    will help me create the animation.
     """
-    global PLOTNO
+    if (algo == "dfs"): startDFS(g, nodes)
+    elif (algo == "bfs"): startBFS(g, nodes)
+    else: startDijkstra(g, nodes)
 
-    G = nx.DiGraph()
-
-    for i in range(1, nodes + 1):
-        G.add_node(i)
-
-    G.add_edges_from(g)
-    PLOTNO = 0
-
-    startBFS(G)
     return PLOTNO
 
 
 
 
-def myplot(G, nodeColors, edgeColors):
+def captureGraph(G, nodeColors, edgeColors, weighted):
     """This will create an image of the graph at particular point."""
     global PLOTNO
     PLOTNO += 1
@@ -158,10 +229,17 @@ def myplot(G, nodeColors, edgeColors):
         "width": 2,
     }
     nx.draw_networkx(G, pos, **options)
+    if weighted:
+        edge_labels = nx.get_edge_attributes(G, "weight")
+        nx.draw_networkx_edge_labels(G, pos, edge_labels)
 
     # Set margins for the axes so that nodes aren't clipped
     ax = plt.gca()
     ax.margins(0.20)
     plt.axis("off")
-    plt.savefig(f"static/output/{PLOTNO}.png")
+    plt.savefig(f"static/output/graph{PLOTNO}.png")
     plt.figure()
+
+
+def captureDataFrame(df):
+    dfi.export(df, f"static/output/data{PLOTNO}.png")

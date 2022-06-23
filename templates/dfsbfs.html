@@ -33,6 +33,7 @@
                 margin-bottom: 10%;
             }
             .solution {
+                text-align: center;
                 border: 2px solid black;
                 padding: 3%;
                 box-shadow: 10px 10px 10px rgba(128, 128, 128, 0.65);
@@ -69,9 +70,9 @@
     <div class = "main">
         <h1 class="mainHeading">Visualisation</h1>
         <div class="solution">
-
+            <h2>{{ algo }}</h2>
             <div id="output">
-                <img height="376" src="{%static 'output/1.png'%}" alt="dog-profile" class="testimonial-img" id="graph">
+                <img height="376" src="{%static 'output/graph1.png'%}" alt="dog-profile" class="testimonial-img" id="graph">
             </div>
             <div id="controls">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
@@ -112,8 +113,9 @@
         }
 
         function initialStage() {
+            clearInterval(myInterval)
             stage = 1
-            graph.src = "{%static 'output/1.png'%}";
+            graph.src = "{%static 'output/graph1.png'%}";
         }
         function nextStage() {
             if (stage === stages) {
@@ -121,14 +123,14 @@
                 return
             }
             stage += 1;
-            let path = `output/${stage}.png`;
+            let path = `output/graph${stage}.png`;
             let newimg = `{% get_static_prefix%}${path}`;
             graph.src = newimg;
         }
         function prevStage() {
             if (stage === 1) return;
             stage -= 1;
-            let path = `output/${stage}.png`;
+            let path = `output/graph${stage}.png`;
             let newimg = `{% get_static_prefix%}${path}`;
             graph.src = newimg;
         }
