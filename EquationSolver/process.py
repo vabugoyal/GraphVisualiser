@@ -10,7 +10,7 @@ def simulateGraph(request):
     2. message
     3. number of stages in the graph
     """
-    ALGOS = ["dfs", "bfs", "dijkstra"]
+    ALGOS = ["dfs", "bfs", "dijkstra", "kruskal", "prims"]
     nodes = request.GET.get('nodes', '')
     algo = request.GET.get('algo', '').lower()
     try:
