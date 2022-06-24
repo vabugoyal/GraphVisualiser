@@ -1,111 +1,98 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Graph Visualiser</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-
-
-  <!-- Google Fonts -->
-  <!-- 1. Ubuntu -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,400;1,700&display=swap"
-    rel="stylesheet">
-  <!-- 2. Montserrat -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap" rel="stylesheet">
-  <!--  MyFont-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@800&family=Fascinate&display=swap" rel="stylesheet">
-
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/d0b66b11a8.js" crossorigin="anonymous"></script>
-
-  {%load static%}
-  <!-- My CSS file -->
-  <link rel="stylesheet" href="{%static 'css/form.css'%}">
-  <link rel="stylesheet" href="{%static 'css/styles.css'%}">
+	<title>Graph Visualiser</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{%static 'images/icons/favicon.ico'  %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+<!--===============================================================================================-->
 
 </head>
-
 <body>
-  <section id="title" class="colored-section">
-    <div class="container-fluid">
-      <!-- Title -->
-      <div class="row">
-        <div class="col-lg-6">
-          <h1 id="message" class="big-heading">Simulate <br> bfs and dfs<br> in <br> single <br> click.</h1>
-        </div>
-        <div class="col-lg-6 shrink">
-        <div>
-          <form action="/solve" method="get" class="decor myform">
-            <div class="form-left-decoration"></div>
-            <div class="form-right-decoration"></div>
-            <div class="circle"></div>
-            <div class="form-inner">
-            <h1 id="form-heading">Graph Inputs</h1>
-            <input type="number" placeholder="Number of nodes" name="nodes">
-            <input type="text" placeholder="DFS or BFS" name="algo">
-            <textarea placeholder="Edges in the graph..." rows="5" name="edges"></textarea>
-            <button type="submit" class="mybutton">Simulate</button>
-            </div>
-          </form>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
+	<div class="contact1">
+		<div class="container-contact1">
+			<div class="contact1-pic js-tilt" data-tilt>
+				<img src="{%static 'images/img-01.png'  %}" alt="IMG">
+			</div>
+
+			<form class="contact1-form validate-form" action="/solve" method="get">
+				<span class="contact1-form-title">
+					Graph Inputs
+				</span>
+
+				<div class="wrap-input1 validate-input" >
+					<input class="input1" type="text" name="nodes" placeholder="Number of nodes">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" >
+					<input class="input1" type="text" name="algo" placeholder="DFS/BFS/DIJKSTRA/KRUSKAL/PRIM">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" >
+					<textarea class="input1" name="edges" placeholder="Edges: u v or u v w"></textarea>
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							Simulate
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 
 
-  <!-- Examples -->
 
-  <section id="testimonials" class="colored-section">
-  </section>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/tilt/tilt.jquery.min.js'%}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  <footer id="footer" class="white-section">
-    <div class="container-fluid">
-      <p>Thanks for visiting.</p>
-    </div>
-  </footer>
+  gtag('config', 'UA-23581568-13');
+</script>
 
-
-
-    <script>
-        {#let state = document.getElementById("graph")#}
-        {#let next = document.getElementById("next")#}
-        {#let idx = 1#}
-        {#next.addEventListener(onclick(), func);#}
-        {#function func() {#}
-            {#if (idx) >#}
-        {#    idx += 1;#}
-
-    </script>
-
-
-
+<!--===============================================================================================-->
+{#	<script src="{%static 'js/main.js'  %}}"></script>#}
 
 </body>
-
 </html>
