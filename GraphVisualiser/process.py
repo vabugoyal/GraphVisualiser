@@ -26,8 +26,12 @@ def simulateGraph(request):
     givenEdgeString = request.GET.get('edges', '').strip()
     givenEdgeStrings = givenEdgeString.split("\r\n")
     if (givenEdgeStrings[0] == ''): givenEdgeStrings = []
+
     g = [] # this will store edges
-    nodes = range(1, numberofnodes + 1)
+
+    nodes = list(range(1, numberofnodes + 1))
+    print(givenEdgeStrings)
+    print(nodes)
     for R in givenEdgeStrings:
         try:
             x = list(map(int, R.split()))
@@ -36,7 +40,7 @@ def simulateGraph(request):
                 u, v = x
                 if (not u in nodes) or (not v in nodes): return False, "Invalid Edges", -1
                 g.append(x)
-            if (len(x) == 3):
+            elif (len(x) == 3):
                 if algo in ["dfs", "bfs"]: return False, "Invalid Edges", -1
                 u, v, w = x
                 if (algo == "dijkstra") and w < 0: return False, "Dijkstra can't handle negative edge weights.", -1
