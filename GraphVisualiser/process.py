@@ -42,6 +42,8 @@ def simulateGraph(request):
                 if (algo == "dijkstra") and w < 0: return False, "Dijkstra can't handle negative edge weights.", -1
                 if (not u in nodes) or (not v in nodes): return False, "Invalid Edges", -1
                 g.append(x)
+            else:
+                return False, "Invalid Edges", -1
         except:
             return False, "Invalid Edges", -1
 
