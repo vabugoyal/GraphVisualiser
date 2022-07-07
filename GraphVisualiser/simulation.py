@@ -17,6 +17,7 @@ def start(g, nodes, algo):
 
     # Defining the zip file URL
     url = 'https://graphimages.herokuapp.com/solve'
+    # url = 'http://localhost:8080/solve'
 
     # Split URL to get the file name
     filename = url.split('/')[-1]
@@ -41,5 +42,5 @@ def start(g, nodes, algo):
     # I have to return the number of images in the zip file
     path = 'static/output'
     images = len(os.listdir(path=path))
-    if (algo == 'dijkstra'): return images
+    if (algo == 'dijkstra'): return images / 2
     return images
