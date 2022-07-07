@@ -22,4 +22,4 @@ def solve(request):
         if (algo == "DIJKSTRA") :
             print("dijskstra rendered")
             return render(request, "dijkstra.html", params)
-        return render(request, "dfsbfs.html", params)
+        return render(request, "DFSBFSPrimKruskal.html", params)
