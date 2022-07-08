@@ -1,27 +1,19 @@
 # Gaussian Eliminator
-This is an equation solver created by me from scratch. 
-This uses Gaussian Elimination to find the solution to a 
-system of equations.
-You can get the solution to a system of equation which has 
-1. Unique Solution
-2. No Solution
-3. Infinite Solutions
+This is a graph visualiser which can run various graph 
+algorithms on the input graph. You can simulate
+1. DFS
+2. BFS
+3. Prim
+4. Kruskal
+5. Dijkstra
 
-Along with that, you can get the 
-rank of the augmented matrix of the 
-system and basis, pointing vector, etc.
+#DFS
+<img width="981" alt="Screenshot 2022-07-08 at 5 33 10 PM" src="https://user-images.githubusercontent.com/89004991/177988481-bb55bc9e-c861-4509-9c44-36a45e28ae69.png">
 
+#BFS
+<img width="998" alt="Screenshot 2022-07-08 at 5 34 19 PM" src="https://user-images.githubusercontent.com/89004991/177988651-0611f628-b7c8-4f26-8ada-410d3e719e7b.png">
 
-<img width="345" alt="Screenshot 2022-06-20 at 4 32 43 PM" src="https://user-images.githubusercontent.com/89004991/174588368-e29b5995-354d-4d9d-b249-82411b049bb3.png">
-
-
-<img width="256" alt="Screenshot 2022-06-20 at 4 32 52 PM" src="https://user-images.githubusercontent.com/89004991/174588258-4bf015d2-1f03-45c0-9044-568cb3fad92e.png">
-
-
-<img width="473" alt="solver" src="https://user-images.githubusercontent.com/89004991/174587662-9fac9d0f-bed2-45f5-835e-29a8797d7b96.png">
-
-
-<img width="877" alt="solution" src="https://user-images.githubusercontent.com/89004991/174587676-7be92c7e-c0eb-4b04-917d-0b6c4a5d6771.png">
-
+#PRIM
+<img width="990" alt="Screenshot 2022-07-08 at 5 35 06 PM" src="https://user-images.githubusercontent.com/89004991/177988769-1b8c3d01-793f-4c65-b0d1-a3b0d2b1703b.png">
 
 
