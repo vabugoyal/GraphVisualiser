@@ -1,4 +1,4 @@
-# Gaussian Eliminator
+# Graph Visualiser
 This is a graph visualiser which can run various graph 
 algorithms on the input graph. You can simulate
 1. DFS
