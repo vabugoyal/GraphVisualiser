@@ -1,6 +1,6 @@
 # Graph Visualiser
 This is a graph visualiser which can run various graph 
-algorithms on the input graph. You can simulate
+algorithms on the input graph. You can simulate the following algorithms
 1. DFS
 2. BFS
 3. Prim
