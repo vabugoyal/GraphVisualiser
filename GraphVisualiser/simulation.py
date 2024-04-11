@@ -16,8 +16,8 @@ def start(g, nodes, algo):
     print('Downloading started')
 
     # Defining the zip file URL
-    url = 'https://graphimages.herokuapp.com/solve'
-    # url = 'http://localhost:8080/solve'
+    url = 'https://graph-visualiser.onrender.com/solve'
+    # url = 'http://127.0.0.1:7000/solve'
 
     # Split URL to get the file name
     filename = url.split('/')[-1]

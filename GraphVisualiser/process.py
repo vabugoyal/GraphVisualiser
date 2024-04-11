@@ -54,6 +54,8 @@ def simulateGraph(request):
 
     # clearing all the files inside output before running the function
     dir = 'static/output'
+    if not os.path.exists(dir):
+        os.makedirs(dir)
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
 
