@@ -4,7 +4,7 @@ services:
     name: visualise-graph-algos
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn visualise-graph-algos.asgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "python -m gunicorn GraphVisualiser.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: SECRET_KEY
         generateValue: true
